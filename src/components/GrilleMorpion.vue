@@ -1,0 +1,142 @@
+<template>
+  <h1 id ="player">Au joueur {{player}} de jouer </h1>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-4">Score Joueur 1 <br> <img src="../assets/cross.png" > <br> <h1>{{ scorePlayerOne }}</h1></div>
+  <div class="col-sm-4">
+    <table class="table">
+      <tbody>
+      <tr>
+        <td v-on:click="add(1)"><img v-if="case1 == 1" src="../assets/cross.png">  <img v-if="case1 == 2" src="../assets/circle.png"></td>
+        <td v-on:click="add(2)"><img v-if="case2 == 1" src="../assets/cross.png">  <img v-if="case2 == 2" src="../assets/circle.png"></td>
+        <td v-on:click="add(3)"><img v-if="case3 == 1" src="../assets/cross.png">  <img v-if="case3 == 2" src="../assets/circle.png"></td>
+      </tr>
+      <tr>
+        <td v-on:click="add(4)"><img v-if="case4 == 1" src="../assets/cross.png">  <img v-if="case4 == 2" src="../assets/circle.png"></td>
+        <td v-on:click="add(5)"><img v-if="case5 == 1" src="../assets/cross.png">  <img v-if="case5 == 2" src="../assets/circle.png"></td>
+        <td v-on:click="add(6)"><img v-if="case6 == 1" src="../assets/cross.png">  <img v-if="case6 == 2" src="../assets/circle.png"></td>
+      </tr>
+      <tr>
+        <td v-on:click="add(7)"><img v-if="case7 == 1" src="../assets/cross.png">  <img v-if="case7 == 2" src="../assets/circle.png"></td>
+        <td v-on:click="add(8)"><img v-if="case8 == 1" src="../assets/cross.png">  <img v-if="case8 == 2" src="../assets/circle.png"></td>
+        <td v-on:click="add(9)"><img v-if="case9 == 1" src="../assets/cross.png">  <img v-if="case9 == 2" src="../assets/circle.png"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+      <div class="col-sm-4">Score Joueur 2 <br> <img src="../assets/circle.png"> <br> <h1>{{ scorePlayerTwo }}</h1></div>
+    </div>
+  </div>
+      <h1 v-if="winner == 1 || winner == 2">Le vainqueur est le Joueur {{ winner }}</h1>
+</template>
+
+<script>
+export default {
+  name: 'GrilleMorpion',
+  data () {
+    return {
+      player: 1,
+      scorePlayerOne: 0,
+      scorePlayerTwo: 0,
+      case1: 0,
+      case2: 0,
+      case3: 0,
+      case4: 0,
+      case5: 0,
+      case6: 0,
+      case7: 0,
+      case8: 0,
+      case9: 0,
+      winner: 0
+    }
+  },
+  methods: {
+    add (numberCase) {
+      if (numberCase === 1 && this.case1 === 0) {
+        this.case1 = this.player
+        this.victory()
+        this.changePlayer()
+      } else if (numberCase === 2 && this.case2 === 0) {
+        this.case2 = this.player
+        this.victory()
+        this.changePlayer()
+      } else if (numberCase === 3 && this.case3 === 0) {
+        this.case3 = this.player
+        this.victory()
+        this.changePlayer()
+      } else if (numberCase === 4 && this.case4 === 0) {
+        this.case4 = this.player
+        this.victory()
+        this.changePlayer()
+      } else if (numberCase === 5 && this.case5 === 0) {
+        this.case5 = this.player
+        this.victory()
+        this.changePlayer()
+      } else if (numberCase === 6 && this.case6 === 0) {
+        this.case6 = this.player
+        this.victory()
+        this.changePlayer()
+      } else if (numberCase === 7 && this.case7 === 0) {
+        this.case7 = this.player
+        this.victory()
+        this.changePlayer()
+      } else if (numberCase === 8 && this.case8 === 0) {
+        this.case8 = this.player
+        this.victory()
+        this.changePlayer()
+      } else if (numberCase === 9 && this.case9 === 0) {
+        this.case9 = this.player
+        this.victory()
+        this.changePlayer()
+      }
+    },
+    changePlayer () {
+      if (this.player === 1) {
+        this.player = 2
+      } else {
+        this.player = 1
+      }
+    },
+    victory () {
+      if ((this.case1 === this.case2 && this.case2 === this.case3 && this.case1 !== 0) ||
+        (this.case4 === this.case5 && this.case5 === this.case6 && this.case4 !== 0) ||
+        (this.case7 === this.case8 && this.case8 === this.case9 && this.case7 !== 0) ||
+        (this.case1 === this.case4 && this.case4 === this.case7 && this.case1 !== 0) ||
+        (this.case2 === this.case5 && this.case5 === this.case8 && this.case2 !== 0) ||
+        (this.case3 === this.case6 && this.case6 === this.case9 && this.case3 !== 0) ||
+        (this.case1 === this.case5 && this.case5 === this.case9 && this.case1 !== 0) ||
+        (this.case3 === this.case5 && this.case5 === this.case7 && this.case3 !== 0)) {
+        this.winner = this.player
+        if(this.player === 1){this.scorePlayerOne++}
+        else{this.scorePlayerTwo++}
+        this.case1 = this.case2 = this.case3 = this.case4 = this.case5 = this.case6 = this.case7 = this.case8 = this.case9 = 0
+      }
+      else if(this.case1 !== 0 && this.case2 !== 0
+          && this.case3 !== 0 && this.case4 !== 0
+          && this.case5 !== 0 && this.case6 !== 0
+          && this.case7 !== 0 && this.case8 !== 0
+          && this.case9 !== 0){
+        this.case1 = this.case2 = this.case3 = this.case4 = this.case5 = this.case6 = this.case7 = this.case8 = this.case9 = 0
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+@import 'bootstrap/dist/css/bootstrap.css';
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  border: 2px solid rgb(200,200,200);
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+}
+td, th {
+  border: 1px solid rgb(190,190,190);
+  width: 125px;
+  height: 125px;
+}
+</style>
