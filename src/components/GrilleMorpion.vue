@@ -147,20 +147,19 @@ export default {
           (this.case1 === this.case5 && this.case5 === this.case9 && this.case1 !== 0) ||
           (this.case3 === this.case5 && this.case5 === this.case7 && this.case3 !== 0)) {
         this.winner = this.player
-        this.popup = true
         if (this.player === 1) {
           this.scorePlayerOne++
         } else {
           this.scorePlayerTwo++
         }
-        this.case1 = this.case2 = this.case3 = this.case4 = this.case5 = this.case6 = this.case7 = this.case8 = this.case9 = 0
+        this.reset()
       } else if (this.case1 !== 0 && this.case2 !== 0
           && this.case3 !== 0 && this.case4 !== 0
           && this.case5 !== 0 && this.case6 !== 0
           && this.case7 !== 0 && this.case8 !== 0
           && this.case9 !== 0) {
         this.winner =0
-        this.case1 = this.case2 = this.case3 = this.case4 = this.case5 = this.case6 = this.case7 = this.case8 = this.case9 = 0
+        this.reset()
       }
     },
     reset() {
