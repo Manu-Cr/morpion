@@ -3,9 +3,9 @@
   <h1>Bienvenue <br> dans le jeu du morpion</h1>
   <br><br><br>
   <div>
-    <button type="button" class="btn btn-success btn-lg" v-on:click="this.$router.push('/grille')">Jouer</button>
+    <button type="button" class="btn btn-success btn-lg" v-on:click="this.$router.push('/grille')">Jouer une Partie</button>
     <br><br>
-    <button type="button" class="btn btn-success btn-lg" v-on:click="this.$router.push('/regle')">Règle</button>
+    <button type="button" class="btn btn-success btn-lg" v-on:click="this.$router.push('/regle')">Règle du Jeu</button>
   </div>
 </template>
 
