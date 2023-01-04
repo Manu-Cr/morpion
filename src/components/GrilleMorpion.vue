@@ -1,40 +1,61 @@
 <template>
-  <h1 id ="player">Au joueur {{player}} de jouer </h1>
+  <h1 id="player">Au joueur {{ player }} de jouer </h1>
   <div class="container">
     <div class="row">
 
-      <div class="col-sm-4">Score Joueur 1 <br> <img src="../assets/cross.png" > <br> <h1>{{ scorePlayerOne }}</h1></div>
-  <div class="col-sm-4">
-    <table class="table">
-      <tbody>
-      <tr>
-        <td v-on:click="add(1)"><img v-if="case1 == 1" src="../assets/cross.png">  <img v-if="case1 == 2" src="../assets/circle.png"></td>
-        <td v-on:click="add(2)"><img v-if="case2 == 1" src="../assets/cross.png">  <img v-if="case2 == 2" src="../assets/circle.png"></td>
-        <td v-on:click="add(3)"><img v-if="case3 == 1" src="../assets/cross.png">  <img v-if="case3 == 2" src="../assets/circle.png"></td>
-      </tr>
-      <tr>
-        <td v-on:click="add(4)"><img v-if="case4 == 1" src="../assets/cross.png">  <img v-if="case4 == 2" src="../assets/circle.png"></td>
-        <td v-on:click="add(5)"><img v-if="case5 == 1" src="../assets/cross.png">  <img v-if="case5 == 2" src="../assets/circle.png"></td>
-        <td v-on:click="add(6)"><img v-if="case6 == 1" src="../assets/cross.png">  <img v-if="case6 == 2" src="../assets/circle.png"></td>
-      </tr>
-      <tr>
-        <td v-on:click="add(7)"><img v-if="case7 == 1" src="../assets/cross.png">  <img v-if="case7 == 2" src="../assets/circle.png"></td>
-        <td v-on:click="add(8)"><img v-if="case8 == 1" src="../assets/cross.png">  <img v-if="case8 == 2" src="../assets/circle.png"></td>
-        <td v-on:click="add(9)"><img v-if="case9 == 1" src="../assets/cross.png">  <img v-if="case9 == 2" src="../assets/circle.png"></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-      <div class="col-sm-4">Score Joueur 2 <br> <img src="../assets/circle.png"> <br> <h1>{{ scorePlayerTwo }}</h1></div>
+      <div class="col-sm-4">Score Joueur 1 <br> <img src="../assets/cross.png"> <br>
+        <h1>{{ scorePlayerOne }}</h1></div>
+      <div class="col-sm-4">
+        <table class="table">
+          <tbody>
+          <tr>
+            <td v-on:click="add(1)"><img v-if="case1 == 1" src="../assets/cross.png"> <img v-if="case1 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+            <td v-on:click="add(2)"><img v-if="case2 == 1" src="../assets/cross.png"> <img v-if="case2 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+            <td v-on:click="add(3)"><img v-if="case3 == 1" src="../assets/cross.png"> <img v-if="case3 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+          </tr>
+          <tr>
+            <td v-on:click="add(4)"><img v-if="case4 == 1" src="../assets/cross.png"> <img v-if="case4 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+            <td v-on:click="add(5)"><img v-if="case5 == 1" src="../assets/cross.png"> <img v-if="case5 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+            <td v-on:click="add(6)"><img v-if="case6 == 1" src="../assets/cross.png"> <img v-if="case6 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+          </tr>
+          <tr>
+            <td v-on:click="add(7)"><img v-if="case7 == 1" src="../assets/cross.png"> <img v-if="case7 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+            <td v-on:click="add(8)"><img v-if="case8 == 1" src="../assets/cross.png"> <img v-if="case8 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+            <td v-on:click="add(9)"><img v-if="case9 == 1" src="../assets/cross.png"> <img v-if="case9 == 2"
+                                                                                           src="../assets/circle.png">
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-4">Score Joueur 2 <br> <img src="../assets/circle.png"> <br>
+        <h1>{{ scorePlayerTwo }}</h1></div>
     </div>
   </div>
-      <h1 v-if="winner == 1 || winner == 2">Le vainqueur est le Joueur {{ winner }}</h1>
+  <button type="button" class="btn btn-primary" v-on:click="reset()">Réinitialiser la grille</button>
+  <h1 v-if="winner == 1 || winner == 2">Dernière partie remporté par le Joueur {{ winner }}</h1>
 </template>
 
 <script>
 export default {
   name: 'GrilleMorpion',
-  data () {
+  data() {
     return {
       player: 1,
       scorePlayerOne: 0,
@@ -52,7 +73,10 @@ export default {
     }
   },
   methods: {
-    add (numberCase) {
+    add(numberCase) {
+      /**
+       * Ajoute le signe du joueur en cours sur la case cliquée test si une condition de victoire est remplie puis change de joueur.
+       */
       if (numberCase === 1 && this.case1 === 0) {
         this.case1 = this.player
         this.victory()
@@ -91,34 +115,53 @@ export default {
         this.changePlayer()
       }
     },
-    changePlayer () {
+
+    changePlayer() {
+      /**
+       * Change de joueur
+       */
       if (this.player === 1) {
         this.player = 2
       } else {
         this.player = 1
       }
     },
-    victory () {
+
+    victory() {
+      /**
+       * Test les conditions de victoire
+       * En cas de victoire d'un des deux joueurs on ajoute un point à son score puis on réinitialise la grille
+       * En cas de match nul personne prend de points et on réinitialise la grille
+       */
       if ((this.case1 === this.case2 && this.case2 === this.case3 && this.case1 !== 0) ||
-        (this.case4 === this.case5 && this.case5 === this.case6 && this.case4 !== 0) ||
-        (this.case7 === this.case8 && this.case8 === this.case9 && this.case7 !== 0) ||
-        (this.case1 === this.case4 && this.case4 === this.case7 && this.case1 !== 0) ||
-        (this.case2 === this.case5 && this.case5 === this.case8 && this.case2 !== 0) ||
-        (this.case3 === this.case6 && this.case6 === this.case9 && this.case3 !== 0) ||
-        (this.case1 === this.case5 && this.case5 === this.case9 && this.case1 !== 0) ||
-        (this.case3 === this.case5 && this.case5 === this.case7 && this.case3 !== 0)) {
+          (this.case4 === this.case5 && this.case5 === this.case6 && this.case4 !== 0) ||
+          (this.case7 === this.case8 && this.case8 === this.case9 && this.case7 !== 0) ||
+          (this.case1 === this.case4 && this.case4 === this.case7 && this.case1 !== 0) ||
+          (this.case2 === this.case5 && this.case5 === this.case8 && this.case2 !== 0) ||
+          (this.case3 === this.case6 && this.case6 === this.case9 && this.case3 !== 0) ||
+          (this.case1 === this.case5 && this.case5 === this.case9 && this.case1 !== 0) ||
+          (this.case3 === this.case5 && this.case5 === this.case7 && this.case3 !== 0)) {
         this.winner = this.player
-        if(this.player === 1){this.scorePlayerOne++}
-        else{this.scorePlayerTwo++}
+        if (this.player === 1) {
+          this.scorePlayerOne++
+        } else {
+          this.scorePlayerTwo++
+        }
         this.case1 = this.case2 = this.case3 = this.case4 = this.case5 = this.case6 = this.case7 = this.case8 = this.case9 = 0
-      }
-      else if(this.case1 !== 0 && this.case2 !== 0
+      } else if (this.case1 !== 0 && this.case2 !== 0
           && this.case3 !== 0 && this.case4 !== 0
           && this.case5 !== 0 && this.case6 !== 0
           && this.case7 !== 0 && this.case8 !== 0
-          && this.case9 !== 0){
+          && this.case9 !== 0) {
         this.case1 = this.case2 = this.case3 = this.case4 = this.case5 = this.case6 = this.case7 = this.case8 = this.case9 = 0
       }
+    },
+    reset() {
+      /**
+       * Reset de la grille
+       * @type {number}
+       */
+      this.case1 = this.case2 = this.case3 = this.case4 = this.case5 = this.case6 = this.case7 = this.case8 = this.case9 = 0
     }
   }
 }
@@ -126,16 +169,18 @@ export default {
 
 <style scoped>
 @import 'bootstrap/dist/css/bootstrap.css';
+
 table {
   margin-left: auto;
   margin-right: auto;
   border-collapse: collapse;
-  border: 2px solid rgb(200,200,200);
+  border: 2px solid rgb(200, 200, 200);
   letter-spacing: 1px;
   font-size: 0.8rem;
 }
+
 td, th {
-  border: 1px solid rgb(190,190,190);
+  border: 1px solid rgb(190, 190, 190);
   width: 125px;
   height: 125px;
 }

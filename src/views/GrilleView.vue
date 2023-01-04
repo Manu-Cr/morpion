@@ -1,6 +1,6 @@
 <template>
   <div class="grille">
-<GrilleMorpion></GrilleMorpion>
+    <GrilleMorpion></GrilleMorpion>
   </div>
 </template>
 
